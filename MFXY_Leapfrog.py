@@ -77,8 +77,7 @@ def init():
 def animate(i):
     thisx = np.cos(q_array[i*speedFactor,:])
     thisy = np.sin(q_array[i*speedFactor,:])
-    #thisx = [ np.cos(q1[i]), np.cos(q2[i]), np.cos(q3[i])]
-    #thisy = [ np.sin(q1[i]), np.sin(q2[i]), np.sin(q3[i])]
+
 
     line.set_data(thisx, thisy)
     time_text.set_text(time_template % (i*speedFactor*dt))
