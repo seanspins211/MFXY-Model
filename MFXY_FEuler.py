@@ -1,4 +1,4 @@
-# Forward Euler for LJ potential
+# Forward Euler
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -40,17 +40,17 @@ v3[0] = v3_n
 for i in range(len(t)-1):
 
     q1_np1  = q1_n + dt*v1_n
-    v1_np1  = v1_n - e/N*(np.sin(q1_n-q2_n)+np.sin(q1_n-q3_n))
+    v1_np1  = v1_n - dt*e/N*(np.sin(q1_n-q2_n)+np.sin(q1_n-q3_n))
     q1_n    = q1_np1
     v1_n    = v1_np1
 
     q2_np1  = q2_n + dt*v2_n
-    v2_np1  = v2_n - e/N*(np.sin(q2_n-q1_n)+np.sin(q2_n-q3_n))
+    v2_np1  = v2_n - dt*e/N*(np.sin(q2_n-q1_n)+np.sin(q2_n-q3_n))
     q2_n    = q2_np1
     v2_n    = v2_np1
 
     q3_np1  = q3_n + dt*v3_n
-    v3_np1  = v3_n - e/N*(np.sin(q3_n-q1_n)+np.sin(q3_n-q2_n))
+    v3_np1  = v3_n - dt*e/N*(np.sin(q3_n-q1_n)+np.sin(q3_n-q2_n))
     q3_n    = q3_np1
     v3_n    = v3_np1
 

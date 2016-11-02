@@ -1,13 +1,13 @@
-# Forward Euler method on MFXY
+# 2nd order Leapfrog method on MFXY
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 
 speedFactor=100 #speeds up animation
-dt  = 0.0005 #step size
+dt  = 0.0001 #step size
 T   = 100.0 #time interval length
-N   = 3 #number of particles
+N   = 100 #number of particles
 e   = 1.0
 pi = np.pi
 
@@ -19,8 +19,7 @@ p_array=np.zeros((int(T/dt),N)) #set all ICs to zero.
 # momentum is conserved, sum of p always zero.
 #p_array[0,:]=2*pi*np.random.rand(3)-pi #random initial values.
 
-#use to set values manually
-#q_array[0,:]=np.array([0.,2.,-2.])
+
 
 
 t = np.arange(0,T,dt)
@@ -28,28 +27,36 @@ t = np.arange(0,T,dt)
 y = np.ones(N) #needed to broadcast in for loop
 
 for i in range(len(t)-1):
-    q_array[i+1,:] = q_array[i,:] + dt*p_array[i,:]
+    '''
+    p1 = p0 #can remove for speed
+    p2 = p1 - dt*e/N*sums
+    q1 = q0 + dt*0.5*p1
+    q2 = q1 + dt*0.5*p2
+    '''
+    q1 = q_array[i,:]+ 0.5*dt*p_array[i,:]
 
-    xx = q_array[i,:].reshape(N,1)
+    xx = q1.reshape(N,1)
 
 
-    AT = (xx +y)
+    AT = (xx + y)
     A  =  np.transpose(xx+y)
     sines = np.sin(AT-A)
     sums  = np.sum(sines,axis=1)
-    '''
-    for j in range(N):
-        sinArray = -np.sin(q_array[i,:]-q_array[i,j])
-        #print sinArray
-    '''
-    p_array[i+1,:] = p_array[i,:] - dt*e/N*sums
+
+    p_array[i+1,:] = p_array[i,:] - e/N*dt*sums
+    q_array[i+1,:] = q1 + dt*0.5*p_array[i+1,:]
+
+
+
+
+
+
+
 
 
 
 
     #phases = ( phases + np.pi) % (2 * np.pi ) - np.pi
-
-    #E[i+1] = (E_0-((v_n**2)/2 + q_n**(-12)-2*q_n**(-6)))/E_0
 
 
 fig = plt.figure()
