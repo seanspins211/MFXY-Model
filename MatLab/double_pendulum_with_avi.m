@@ -1,4 +1,4 @@
-function double_pendulum(q, timeArray, plotSlice)
+function double_pendulum_with_avi(q, timeArray, plotSlice)
 %clear All; clf;
 
 t = timeArray;
@@ -16,7 +16,8 @@ axis square;
 hold off;
 set(gcf,'renderer','zbuffer'); 
 set(gca,'nextplot','replacechildren');
-
+v = VideoWriter('test.avi');
+open(v);
 
     for i=1:plotSlice:length(t)-1
         if (ishandle(h)==1)
@@ -25,9 +26,12 @@ set(gca,'nextplot','replacechildren');
             Ycoord=sin(q(i,:));
             set(h,'XData',Xcoord,'YData',Ycoord);
             drawnow;
-                              
+            frame = getframe;
+            writeVideo(v,frame);
+            
+            
         end
         
     end
 
-
+    close(v);

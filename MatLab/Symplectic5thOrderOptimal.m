@@ -1,8 +1,8 @@
 % 5th order optimal symplectic algorithm applied to MFXY model
-
-dt = 0.001; %time step
-T  = 1.0; %Total time
-N  = 10; %number of spins
+tic
+dt = 0.0005; %time step
+T  = 100.0; %Total time
+N  = 100; %number of spins
 e  = 1.0; %coupling stregth
 
 plotSlice = 50; %controls the speed of animation
@@ -20,7 +20,7 @@ b2 = 0.6989273703824752308;
 b3 =-0.1713123582716007754;
 b4 = 0.4012695022513534480;
 b5 = 0.0107050818482359840;
-b6 = 0.0589796254980311632;
+b6 = -0.0589796254980311632;
 
 %initial positions on unit cirle
 q_array=zeros(fix(T/dt), N);
@@ -51,9 +51,10 @@ for k = 1:(steps-1)
     q_array(k+1,:) = q6;
 
 end
+disp(toc)
 %modified function taken from:
 %https://www.mathworks.com/matlabcentral/fileexchange/27212-animated-double-pendulum
-double_pendulum(q_array, 0:dt:T-dt, true,plotSlice);
+double_pendulum(q_array, 0:dt:T-dt,plotSlice);
 %{
 %Plot conservation of angular momentum
 %plot(0:dt:T-dt,sum(p_array,2))
